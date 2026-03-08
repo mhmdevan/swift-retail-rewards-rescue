@@ -21,8 +21,13 @@ echo "Generating project and installing pods..."
 xcodegen generate
 pod install --silent
 
-DESTINATION="$("./scripts/resolve_destination.sh" "${SCHEME}" "RetailRewardsRescue.xcworkspace")"
-echo "Using destination: ${DESTINATION}"
+if DESTINATION="$("./scripts/resolve_destination.sh" "${SCHEME}" "RetailRewardsRescue.xcworkspace" "simulator_only")"; then
+  echo "Using destination: ${DESTINATION}"
+else
+  echo "No concrete iOS Simulator runtime found. Skipping UI tests."
+  echo "UI tests skipped: iOS Simulator runtime unavailable on this runner." | tee build/ui-tests.log
+  exit 0
+fi
 
 echo "Running UI smoke and accessibility tests..."
 xcodebuild \

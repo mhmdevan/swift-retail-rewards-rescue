@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCHEME="${1:-RetailRewardsRescue}"
 WORKSPACE="${2:-RetailRewardsRescue.xcworkspace}"
+MODE="${3:-simulator_or_mymac}"
 
 if [[ -n "${DESTINATION:-}" ]]; then
   echo "${DESTINATION}"
@@ -21,45 +22,54 @@ if [[ -z "${destinations_output}" ]]; then
   exit 1
 fi
 
-parsed_destinations="$(
-  printf "%s\n" "${destinations_output}" | awk -F',' '
-    /platform:iOS Simulator/ && /id:/ && /name:/ {
-      id = ""
-      name = ""
-
-      for (i = 1; i <= NF; i++) {
-        token = $i
-        gsub(/^[[:space:]]+|[[:space:]]+$/, "", token)
-        gsub(/[{}]/, "", token)
-
-        if (token ~ /^id:/) {
-          sub(/^id:[[:space:]]*/, "", token)
-          id = token
-        } else if (token ~ /^name:/) {
-          sub(/^name:[[:space:]]*/, "", token)
-          name = token
+simulator_candidates="$(
+  printf "%s\n" "${destinations_output}" | sed -nE \
+    's/.*platform:iOS Simulator.*id:([^,}]+).*name:([^,}]+).*/\1|\2/p' | \
+    awk -F'|' '
+      {
+        id = $1
+        name = $2
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", id)
+        gsub(/^[[:space:]]+|[[:space:]]+$/, "", name)
+        if (id != "" && id !~ /^dvtdevice-/) {
+          print id "|" name
         }
       }
-
-      if (id != "" && id !~ /^dvtdevice-/) {
-        print id "|" name
-      }
-    }
-  '
+    '
 )"
 
-if [[ -z "${parsed_destinations}" ]]; then
+if [[ -n "${simulator_candidates}" ]]; then
+  selected_simulator_id="$(
+    printf "%s\n" "${simulator_candidates}" | awk -F'|' '$2 ~ /^iPhone / { print $1; exit }'
+  )"
+
+  if [[ -z "${selected_simulator_id}" ]]; then
+    selected_simulator_id="$(printf "%s\n" "${simulator_candidates}" | head -n 1 | cut -d'|' -f1)"
+  fi
+
+  echo "id=${selected_simulator_id}"
+  exit 0
+fi
+
+if [[ "${MODE}" == "simulator_only" ]]; then
   echo "No usable iOS Simulator destination found for scheme ${SCHEME}." >&2
   echo "${destinations_output}" >&2
   exit 1
 fi
 
-selected_id="$(
-  printf "%s\n" "${parsed_destinations}" | awk -F'|' '$2 ~ /^iPhone / { print $1; exit }'
-)"
+if [[ "${MODE}" == "simulator_or_mymac" ]]; then
+  mac_fallback_id="$(
+    printf "%s\n" "${destinations_output}" | sed -nE \
+      's/.*platform:macOS.*variant:Designed for \[iPad,iPhone\].*id:([^,}]+).*/\1/p' | \
+      head -n 1 | xargs
+  )"
 
-if [[ -z "${selected_id}" ]]; then
-  selected_id="$(printf "%s\n" "${parsed_destinations}" | head -n 1 | cut -d'|' -f1)"
+  if [[ -n "${mac_fallback_id}" ]]; then
+    echo "id=${mac_fallback_id}"
+    exit 0
+  fi
 fi
 
-echo "id=${selected_id}"
+echo "No usable destination found for scheme ${SCHEME} (mode=${MODE})." >&2
+echo "${destinations_output}" >&2
+exit 1
