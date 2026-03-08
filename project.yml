@@ -6,7 +6,6 @@ options:
 settings:
   base:
     SWIFT_VERSION: 5.10
-    PRODUCT_NAME: RetailRewardsRescue
 packages:
   LocalPackages:
     path: .
@@ -17,9 +16,13 @@ targets:
     info:
       path: App/Resources/Info.plist
     sources:
-      - App
-      - Legacy/LegacyNetworking
-      - Legacy/LegacyLoyaltyKit
+      - path: App
+      - path: Legacy/LegacyNetworking
+        excludes:
+          - "**/*.md"
+      - path: Legacy/LegacyLoyaltyKit
+        excludes:
+          - "**/*.md"
     dependencies:
       - package: LocalPackages
         product: Core
@@ -49,6 +52,11 @@ targets:
       - Tests/AppTests
     dependencies:
       - target: RetailRewardsRescue
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.evan.retailrewardsrescue.tests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
   RetailRewardsRescueUITests:
     type: bundle.ui-testing
     platform: iOS
@@ -56,6 +64,12 @@ targets:
       - Tests/UITests
     dependencies:
       - target: RetailRewardsRescue
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.evan.retailrewardsrescue.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
+        TEST_TARGET_NAME: RetailRewardsRescue
   RetailRewardsRescuePerformanceTests:
     type: bundle.unit-test
     platform: iOS
@@ -63,6 +77,11 @@ targets:
       - Tests/PerformanceTests
     dependencies:
       - target: RetailRewardsRescue
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.evan.retailrewardsrescue.performancetests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
   RetailRewardsRescueSnapshotTests:
     type: bundle.unit-test
     platform: iOS
@@ -70,3 +89,8 @@ targets:
       - Tests/SnapshotTests
     dependencies:
       - target: RetailRewardsRescue
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.evan.retailrewardsrescue.snapshottests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
