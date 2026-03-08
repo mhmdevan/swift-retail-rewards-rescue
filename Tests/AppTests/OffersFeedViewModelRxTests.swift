@@ -3,9 +3,7 @@ import Core
 import DesignSystem
 import FeaturesOffers
 import Persistence
-import RxBlocking
 import RxSwift
-import RxTest
 import XCTest
 @testable import RetailRewardsRescue
 
@@ -79,10 +77,17 @@ final class OffersFeedViewModelRxTests: XCTestCase {
         )
 
         var latest: [OfferSummary] = []
+        var didRequestSecondPage = false
         let mergedExpectation = expectation(description: "Merged pagination result emitted")
         output.offers
-            .drive(onNext: { offers in
+            .drive(onNext: { [weak nextPage] offers in
                 latest = offers
+                if offers.count == 2, !didRequestSecondPage {
+                    didRequestSecondPage = true
+                    DispatchQueue.main.async {
+                        nextPage?.onNext(())
+                    }
+                }
                 if offers.count == 3 {
                     mergedExpectation.fulfill()
                 }
@@ -90,7 +95,6 @@ final class OffersFeedViewModelRxTests: XCTestCase {
             .disposed(by: disposeBag)
 
         initialLoad.onNext(())
-        nextPage.onNext(())
 
         waitForExpectations(timeout: 2.0)
 
@@ -114,7 +118,6 @@ final class OffersFeedViewModelRxTests: XCTestCase {
             failFirstRequestForPage1: true
         )
         let savedStore = StubSavedOffersStore(savedIDs: [])
-        let scheduler = TestScheduler(initialClock: 0)
         let viewModel = OffersFeedViewModel(
             repository: repository,
             savedOffersStore: savedStore,
@@ -122,38 +125,42 @@ final class OffersFeedViewModelRxTests: XCTestCase {
             pageSize: 1
         )
 
-        let initialLoad = scheduler.createHotObservable([.next(10, ())]).asObservable()
-        let retryTap = scheduler.createHotObservable([.next(20, ())]).asObservable()
+        let initialLoad = PublishSubject<Void>()
+        let retryTap = PublishSubject<Void>()
         let output = viewModel.transform(
             input: .init(
-                initialLoad: initialLoad,
+                initialLoad: initialLoad.asObservable(),
                 pullToRefresh: .empty(),
-                retryTap: retryTap,
+                retryTap: retryTap.asObservable(),
                 loadNextPage: .empty()
             )
         )
 
-        let stateObserver = scheduler.createObserver(ContentState.self)
-        output.state.drive(stateObserver).disposed(by: disposeBag)
-        scheduler.start()
+        var sawError = false
+        let contentExpectation = expectation(description: "Content state emitted after retry")
+        output.state
+            .drive(onNext: { state in
+                switch state {
+                case .error:
+                    if !sawError {
+                        sawError = true
+                        DispatchQueue.main.async {
+                            retryTap.onNext(())
+                        }
+                    }
+                case .content:
+                    contentExpectation.fulfill()
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
 
-        let contentState = try? output.state
-            .asObservable()
-            .filter { $0 == .content }
-            .take(1)
-            .toBlocking(timeout: 2.0)
-            .first()
+        initialLoad.onNext(())
+        waitForExpectations(timeout: 2.0)
 
         XCTAssertEqual(repository.requestedPages, [1, 1])
-        XCTAssertEqual(contentState, .content)
-        XCTAssertTrue(
-            stateObserver.events.contains(where: {
-                if case .error = $0.value.element {
-                    return true
-                }
-                return false
-            })
-        )
+        XCTAssertTrue(sawError)
     }
 }
 
