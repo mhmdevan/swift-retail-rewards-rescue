@@ -2,7 +2,6 @@
 set -euo pipefail
 
 SCHEME="${SCHEME:-RetailRewardsRescue}"
-DESTINATION="${DESTINATION:-platform=iOS Simulator,name=iPhone 15}"
 RESULT_BUNDLE="${RESULT_BUNDLE:-build/UITests.xcresult}"
 
 if ! command -v xcodegen >/dev/null 2>&1; then
@@ -21,6 +20,9 @@ rm -rf "${RESULT_BUNDLE}"
 echo "Generating project and installing pods..."
 xcodegen generate
 pod install --silent
+
+DESTINATION="$("./scripts/resolve_destination.sh" "${SCHEME}" "RetailRewardsRescue.xcworkspace")"
+echo "Using destination: ${DESTINATION}"
 
 echo "Running UI smoke and accessibility tests..."
 xcodebuild \
