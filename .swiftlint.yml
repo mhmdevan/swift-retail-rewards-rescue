@@ -8,8 +8,16 @@ excluded:
   - Legacy
 
 line_length:
-  warning: 140
+  warning: 180
+  error: 240
+
+function_body_length:
+  warning: 120
   error: 180
+
+cyclomatic_complexity:
+  warning: 15
+  error: 25
 
 type_body_length:
   warning: 350
@@ -27,8 +35,8 @@ identifier_name:
 opt_in_rules:
   - empty_count
   - explicit_init
-  - sorted_imports
   - redundant_nil_coalescing
 
 disabled_rules:
   - todo
+  - static_over_final_class

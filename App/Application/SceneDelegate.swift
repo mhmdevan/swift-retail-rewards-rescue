@@ -29,8 +29,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let webpageURL = connectionOptions.userActivities
             .first(where: { $0.activityType == NSUserActivityTypeBrowsingWeb })?
-            .webpageURL
-        {
+            .webpageURL {
             appCoordinator.handleIncomingURL(webpageURL)
         }
     }
