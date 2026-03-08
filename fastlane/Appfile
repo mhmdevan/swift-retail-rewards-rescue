@@ -1,0 +1,3 @@
+app_identifier("com.evan.retailrewardsrescue")
+apple_id(ENV["APPLE_ID"] || "dev@example.com")
+team_id(ENV["APPLE_TEAM_ID"] || "TEAMID12345")

@@ -1,0 +1,34 @@
+included:
+  - App
+  - Packages
+  - Tests
+excluded:
+  - Pods
+  - .build
+  - Legacy
+
+line_length:
+  warning: 140
+  error: 180
+
+type_body_length:
+  warning: 350
+
+file_length:
+  warning: 600
+
+identifier_name:
+  min_length: 2
+  excluded:
+    - id
+    - x
+    - y
+
+opt_in_rules:
+  - empty_count
+  - explicit_init
+  - sorted_imports
+  - redundant_nil_coalescing
+
+disabled_rules:
+  - todo

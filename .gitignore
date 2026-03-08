@@ -1,0 +1,10 @@
+.DS_Store
+.build
+DerivedData
+Pods
+*.xcworkspace
+*.xcodeproj/xcuserdata
+*.xcworkspace/xcuserdata
+
+# Keep generated Xcode project out; regenerate via xcodegen
+RetailRewardsRescue.xcodeproj

@@ -1,0 +1,62 @@
+<svg width="1600" height="720" viewBox="0 0 1600 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B132B"/>
+      <stop offset="1" stop-color="#1C2541"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="210" y1="120" x2="1420" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5BC0BE"/>
+      <stop offset="1" stop-color="#00A6A6"/>
+    </linearGradient>
+    <filter id="blur" x="0" y="0" width="1600" height="720" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="45"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="720" fill="url(#bg)"/>
+
+  <g opacity="0.35" filter="url(#blur)">
+    <circle cx="250" cy="120" r="140" fill="#5BC0BE"/>
+    <circle cx="1260" cy="600" r="180" fill="#00A6A6"/>
+    <circle cx="1410" cy="140" r="120" fill="#3A506B"/>
+  </g>
+
+  <rect x="86" y="86" width="1428" height="548" rx="26" fill="#111B36" stroke="rgba(255,255,255,0.14)"/>
+
+  <rect x="132" y="132" width="320" height="42" rx="21" fill="url(#accent)"/>
+  <text x="162" y="159" fill="#0B132B" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="21" font-weight="700">
+    UIKit Legacy Modernization Case Study
+  </text>
+
+  <text x="132" y="256" fill="#FFFFFF" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="76" font-weight="800">
+    Retail Rewards Rescue
+  </text>
+
+  <text x="132" y="318" fill="#D0E6E6" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="32" font-weight="500">
+    Building production confidence in a mixed UIKit + SwiftUI + Objective-C iOS architecture.
+  </text>
+
+  <g transform="translate(132 380)">
+    <rect width="412" height="188" rx="20" fill="#162448"/>
+    <text x="28" y="52" fill="#5BC0BE" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700">Problem</text>
+    <text x="28" y="86" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">Legacy app quality risk:</text>
+    <text x="28" y="118" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">slow feature delivery and</text>
+    <text x="28" y="150" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">fragile releases.</text>
+  </g>
+
+  <g transform="translate(590 380)">
+    <rect width="412" height="188" rx="20" fill="#162448"/>
+    <text x="28" y="52" fill="#5BC0BE" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700">Approach</text>
+    <text x="28" y="86" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">Migration seams, strong</text>
+    <text x="28" y="118" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">boundaries, deterministic</text>
+    <text x="28" y="150" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">testing and observability.</text>
+  </g>
+
+  <g transform="translate(1048 380)">
+    <rect width="412" height="188" rx="20" fill="#162448"/>
+    <text x="28" y="52" fill="#5BC0BE" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700">Outcome</text>
+    <text x="28" y="86" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">A realistic senior-level</text>
+    <text x="28" y="118" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">delivery story, not just</text>
+    <text x="28" y="150" fill="#E4F4F3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22">a feature demo.</text>
+  </g>
+</svg>

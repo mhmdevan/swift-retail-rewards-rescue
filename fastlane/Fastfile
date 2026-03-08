@@ -1,0 +1,36 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Run SwiftLint"
+  lane :lint do
+    sh("./scripts/lint.sh")
+  end
+
+  desc "Run Swift package unit tests"
+  lane :package_tests do
+    sh("./scripts/test.sh")
+  end
+
+  desc "Run app unit, snapshot, and performance tests"
+  lane :app_tests do
+    sh("./scripts/test_app.sh")
+  end
+
+  desc "Run UI smoke and accessibility tests"
+  lane :ui_smoke do
+    sh("./scripts/test_ui.sh")
+  end
+
+  desc "Build unsigned release archive"
+  lane :build do
+    sh("./scripts/build_app.sh")
+  end
+
+  desc "Run local CI checks"
+  lane :ci do
+    lint
+    package_tests
+    app_tests
+    ui_smoke
+  end
+end

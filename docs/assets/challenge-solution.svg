@@ -1,0 +1,41 @@
+<svg width="1600" height="760" viewBox="0 0 1600 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="760" fill="#F8FCFC"/>
+  <text x="70" y="92" fill="#103447" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="44" font-weight="800">Engineering Challenges and Solutions</text>
+
+  <rect x="70" y="140" width="460" height="540" rx="20" fill="#FFFFFF" stroke="#BFDCE6"/>
+  <text x="100" y="192" fill="#176084" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="30" font-weight="700">Challenge</text>
+  <text x="100" y="240" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Mixed legacy stack in active</text>
+  <text x="100" y="275" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">delivery environment.</text>
+  <text x="100" y="338" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Risk of fragile regressions</text>
+  <text x="100" y="373" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">across routing, sync, and</text>
+  <text x="100" y="408" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">state persistence.</text>
+  <text x="100" y="471" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Need modernization without</text>
+  <text x="100" y="506" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">rewriting the full app shell.</text>
+
+  <rect x="570" y="140" width="460" height="540" rx="20" fill="#FFFFFF" stroke="#BFDCE6"/>
+  <text x="600" y="192" fill="#176084" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="30" font-weight="700">Solution</text>
+  <text x="600" y="240" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Clean boundaries by module:</text>
+  <text x="600" y="275" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">domain, routing, persistence.</text>
+  <text x="600" y="338" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Dual-path networking:</text>
+  <text x="600" y="373" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Alamofire (legacy) +</text>
+  <text x="600" y="408" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">URLSession async (modern).</text>
+  <text x="600" y="471" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Operational hardening via</text>
+  <text x="600" y="506" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">logging, diagnostics, BG sync,</text>
+  <text x="600" y="541" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">and deterministic tests.</text>
+
+  <rect x="1070" y="140" width="460" height="540" rx="20" fill="#FFFFFF" stroke="#BFDCE6"/>
+  <text x="1100" y="192" fill="#176084" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="30" font-weight="700">Impact</text>
+  <text x="1100" y="240" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Faster feature evolution with</text>
+  <text x="1100" y="275" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">lower architectural risk.</text>
+  <text x="1100" y="338" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Clear migration narrative:</text>
+  <text x="1100" y="373" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">legacy-safe today, modern-ready</text>
+  <text x="1100" y="408" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">tomorrow.</text>
+  <text x="1100" y="471" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">Senior-level engineering signal:</text>
+  <text x="1100" y="506" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">design, delivery, quality, and</text>
+  <text x="1100" y="541" fill="#274B5C" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="24">operational ownership.</text>
+
+  <path d="M530 410H570" stroke="#4B7A91" stroke-width="5"/>
+  <path d="M1030 410H1070" stroke="#4B7A91" stroke-width="5"/>
+  <polygon points="560,398 576,410 560,422" fill="#4B7A91"/>
+  <polygon points="1060,398 1076,410 1060,422" fill="#4B7A91"/>
+</svg>

@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  package-quality:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Bootstrap
+        run: ./scripts/bootstrap.sh
+
+      - name: Lint
+        run: ./scripts/lint.sh
+
+      - name: Package Unit Tests
+        run: ./scripts/test.sh
+
+  app-tests:
+    runs-on: macos-latest
+    needs: package-quality
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+
+      - name: App Unit/Snapshot/Performance Tests
+        run: ./scripts/test_app.sh
+
+      - name: Upload App Test Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-test-logs
+          path: build/app-tests.log
+
+  ui-smoke:
+    runs-on: macos-latest
+    needs: app-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+
+      - name: UI Smoke + Accessibility Tests
+        run: ./scripts/test_ui.sh
+
+      - name: Upload UI Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-artifacts
+          path: |
+            build/ui-tests.log
+            build/UITests.xcresult

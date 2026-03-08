@@ -1,0 +1,72 @@
+name: RetailRewardsRescue
+options:
+  bundleIdPrefix: com.evan
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    SWIFT_VERSION: 5.10
+    PRODUCT_NAME: RetailRewardsRescue
+packages:
+  LocalPackages:
+    path: .
+targets:
+  RetailRewardsRescue:
+    type: application
+    platform: iOS
+    info:
+      path: App/Resources/Info.plist
+    sources:
+      - App
+      - Legacy/LegacyNetworking
+      - Legacy/LegacyLoyaltyKit
+    dependencies:
+      - package: LocalPackages
+        product: Core
+      - package: LocalPackages
+        product: DesignSystem
+      - package: LocalPackages
+        product: Routing
+      - package: LocalPackages
+        product: FeaturesOffers
+      - package: LocalPackages
+        product: NetworkingModern
+      - package: LocalPackages
+        product: Persistence
+      - package: LocalPackages
+        product: FeaturesSavedOffers
+    settings:
+      base:
+        INFOPLIST_FILE: App/Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.evan.retailrewardsrescue
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_OBJC_BRIDGING_HEADER: App/Application/RetailRewardsRescue-Bridging-Header.h
+        CODE_SIGN_ENTITLEMENTS: App/Resources/RetailRewardsRescue.entitlements
+  RetailRewardsRescueTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests/AppTests
+    dependencies:
+      - target: RetailRewardsRescue
+  RetailRewardsRescueUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - Tests/UITests
+    dependencies:
+      - target: RetailRewardsRescue
+  RetailRewardsRescuePerformanceTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests/PerformanceTests
+    dependencies:
+      - target: RetailRewardsRescue
+  RetailRewardsRescueSnapshotTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - Tests/SnapshotTests
+    dependencies:
+      - target: RetailRewardsRescue
